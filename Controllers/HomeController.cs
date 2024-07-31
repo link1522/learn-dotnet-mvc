@@ -7,15 +7,20 @@ namespace HelloMVC.Controllers;
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
+    private readonly DotnetMvcContext _dotnetMvcContext;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(
+        ILogger<HomeController> logger,
+        DotnetMvcContext dotnetMvcContext
+    )
     {
+        _dotnetMvcContext = dotnetMvcContext;
         _logger = logger;
     }
 
-    public IActionResult Index()
+    public string? Index()
     {
-        return View();
+        return _dotnetMvcContext.book.FirstOrDefault()?.name;
     }
 
     public IActionResult Privacy()
